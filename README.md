@@ -8,7 +8,7 @@
 ><br>
 ><br>
 >
->[***Disponivel para visualização!***](https://imersao-react-alura-gules-iota.vercel.app/)
+>[<img width="150px" src="https://www.datocms-assets.com/31049/1618983297-powered-by-vercel.svg" />](https://imersao-react-alura-gules-iota.vercel.app/)
 
 ## Em pc:
 <img src="pc.jpeg">
