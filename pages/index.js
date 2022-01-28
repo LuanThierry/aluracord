@@ -1,16 +1,16 @@
-import { Box, Button, Text, TextField, Image } from '@skynexui/components';
+import { Box, Button, Text, TextField, Image, Icon } from '@skynexui/components';
 import appConfig from '../config.json';
 
 function GlobalStyle() {
   return (
     <style global jsx>{`
       * {
-        background: #1d1d1d;
+        background: #131418;
         margin: 0;
         padding: 0;
         box-sizing: border-box;
-        color: #d1d1dd;
         list-style:none;
+        text-decoration: none;
       }
 
       body{
@@ -57,7 +57,7 @@ function Titulo( props ) {
    );
 }
 
-/* React component
+{/* React component
 function HomePage() {
   // JSX
   return (
@@ -68,8 +68,7 @@ function HomePage() {
     </div>
   )
 }
-
-export default HomePage*/
+export default HomePage*/}
 
 export default function PaginaInicial() {
   const username = 'LuanThierry';
@@ -80,7 +79,7 @@ export default function PaginaInicial() {
       <Box
         styleSheet={{
           display: 'flex', alignItems: 'center', justifyContent: 'center',
-          backgroundColor: appConfig.theme.colors.primary[950],
+          backgroundColor: appConfig.theme.colors.primary[1000],
           backgroundImage: 'url(https://images6.alphacoders.com/116/thumb-1920-1161813.jpg)',
           backgroundRepeat: 'no-repeat', backgroundSize: 'cover', backgroundBlendMode: 'multiply',
         }}
@@ -118,33 +117,35 @@ export default function PaginaInicial() {
             </Text>
 
             <TextField
-              value={username}
               fullWidth
               textFieldColors={{
                 neutral: {
-                  textColor: appConfig.theme.colors.primary[1000],
+                  textColor: appConfig.theme.colors.primary[500],
                   mainColor: appConfig.theme.colors.primary[400],
                   mainColorHighlight: appConfig.theme.colors.primary[500],
                   backgroundColor: appConfig.theme.colors.primary[50],
+                  
                 },
+
               }}
+              placeholder="Your Github Nickname..."
             />
             <Button
-              type='submit'
-              label='Entrar'
-              fullWidth
+              buttonColors={{
+                contrastColor:appConfig.theme.colors.primary[500],
+
+              }}
               styleSheet={{
-                textDecoration: 'none',
-                color: appConfig.theme.colors.primary['0'],
-                backgroundColor: appConfig.theme.colors.primary['400'],
+                border: '0 0 1px 0',
+                borderColor: appConfig.theme.colors.primary[400],
                 hover: {
-                  backgroundColor:  appConfig.theme.colors.primary['500'],
-                },
-                focus: {
-                  color:  appConfig.theme.colors.primary['400'],
-                  backgroundColor:  appConfig.theme.colors.primary['500'],
-              },
-            }}
+                  borderColor: appConfig.theme.colors.primary[500],
+                  border: '0 0 1px 0',
+                }
+              }}
+              fullWidth
+              iconName="arrowRight"
+              variant="secondary"
             />
           </Box>
           {/* Formulário */}
