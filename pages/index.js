@@ -134,7 +134,7 @@ export default function PaginaInicial() {
               variant="body4"
               styleSheet={{
                 color: appConfig.theme.colors.primary["400"],
-                backgroundColor: appConfig.theme.colors.primary["500"],
+                backgroundColor: appConfig.theme.colors.primary["1000"],
                 padding: "5px 12px",
                 borderRadius: "1000px",
                 margin: "0",
