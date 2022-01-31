@@ -1,191 +1,199 @@
-import { Box, Button, Text, TextField, Image, Icon } from '@skynexui/components';
-import appConfig from '../config.json';
+import {
+  Box,
+  Button,
+  Text,
+  TextField,
+  Image,
+  Icon,
+} from "@skynexui/components";
+import React from "react";
+import { useRouter } from "next/router";
+import appConfig from "../config.json";
 
-function GlobalStyle() {
+function Titulo(props) {
+  const Tag = props.tag || "h1";
   return (
-    <style global jsx>{`
-      * {
-        background: #131418;
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        list-style:none;
-        text-decoration: none;
-      }
-
-      body{
-        font-family: Arial;
-      }
-
-       /* App fit Height */ 
-      html, body, #__next {
-        min-height: 100vh;
-        display: flex;
-        flex: 1;
-      }
-      #__next {
-        flex: 1;
-      }
-      #__next > * {
-        flex: 1;
-      }
-      /* ./App fit Height */ 
-    `}</style>
-  )
-}
-
-function Titulo( props ) {
-  const Tag = props.tag || 'h1';
-  return (
-
     <>
-       <Tag>{props.children}</Tag>
+      <Tag>{props.children}</Tag>
 
-       <style jsx>{`
+      <style jsx>{`
         ${Tag} {
           display: flex;
-          color: ${appConfig.theme.colors.primary[400]};
+          color: ${appConfig.theme.colors.neutrals[500]};
           font-size: 18px;
           font-weight: 600;
-          border: 1px solid;
+          border: 2px solid ${appConfig.theme.colors.neutrals[500]};
           border-radius: 5px;
           padding: 10px;
         }
-        `}</style>
+      `}</style>
     </>
-
-   );
+  );
 }
-
-{/* React component
-function HomePage() {
-  // JSX
-  return (
-    <div>
-      <GlobalStyle />
-      <Titulo tag="h2">Boas vindas de volta!</Titulo>
-      <h2>Discord - Luan</h2>
-    </div>
-  )
-}
-export default HomePage*/}
-
 export default function PaginaInicial() {
-  const username = 'LuanThierry';
-
+  //const username = 'LuanThierry';
+  const [username, setUsername] = React.useState("");
+  const [fotinha, setFotinha] = React.useState('https://th.bing.com/th/id/OIP.VRj9PnrFHhaX2vtoNZU4wwHaHa?w=200&h=215&c=7&r=0&o=5&pid=1.7');
+  const roteamento = useRouter();
+  fetch(`https://api.github.com/users/${username}`).then(async(respostaDoServidor) => {
+    const respostaEsperada = await respostaDoServidor.json();
+    console.log(respostaEsperada)
+  })
   return (
     <>
-      <GlobalStyle />
       <Box
         styleSheet={{
-          display: 'flex', alignItems: 'center', justifyContent: 'center',
-          backgroundColor: appConfig.theme.colors.primary[1000],
-          backgroundImage: 'url(https://images6.alphacoders.com/116/thumb-1920-1161813.jpg)',
-          backgroundRepeat: 'no-repeat', backgroundSize: 'cover', backgroundBlendMode: 'multiply',
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          backgroundColor: appConfig.theme.colors.primary[950],
+          backgroundImage:
+            "url(https://images6.alphacoders.com/116/thumb-1920-1161813.jpg)",
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "cover",
+          backgroundBlendMode: "multiply",
         }}
       >
         <Box
           styleSheet={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
             flexDirection: {
-              xs: 'column',
-              sm: 'row',
+              xs: "column",
+              sm: "column",
             },
-            width: '100%', maxWidth: '700px',
-            borderRadius: '5px', padding: '32px', margin: '16px',
-            boxShadow: '0 0 10px #131418',
-            backgroundColor: appConfig.theme.colors.primary[1000],
-            border: '1px solid',
-            borderColor: appConfig.theme.colors.primary[400],
-
+            boxSizing:'border-box',
+            width: "100%",
+            maxWidth: "400px",
+            borderRadius: "5px",
+            padding: "32px 0px 0px 0px",
+            margin: "16px",
+            boxShadow: "0 0 20px #131418",
+            backgroundColor: appConfig.theme.colors.neutrals[1000],
+            border: "1px solid",
+            borderColor: appConfig.theme.colors.neutrals[500],
           }}
         >
           {/* Formulário */}
           <Box
             as="form"
+            onSubmit={function (infosDoEvento) {
+              //window.location.href = '/chat' antigo e chato kkk
+              roteamento.push("/chat");
+              infosDoEvento.preventDefault();
+            }}
             styleSheet={{
-              display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
-              width: { xs: '100%', sm: '50%' }, textAlign: 'center', marginBottom: '32px', backgroundColor: appConfig.theme.colors.primary[1000],
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+              width: { xs: "100%", sm: "80%" },
+              textAlign: "center",
+              marginBottom: "32px",
+              backgroundColor: appConfig.theme.colors.neutrals[1000],
             }}
           >
             <Titulo>{appConfig.name}</Titulo>
-            <Text variant="body3" styleSheet={{ margin: '15px auto 40px auto', display: 'flex', fontSize: '14px', color: appConfig.theme.colors.primary[400], backgroundColor: appConfig.theme.colors.primary[1000],
-            borderColor: appConfig.theme.colors.primary[400]}}>
-              Bem-vindo de volta {username}!
-            </Text>
-
-            <TextField
-              fullWidth
-              textFieldColors={{
-                neutral: {
-                  textColor: appConfig.theme.colors.primary[500],
-                  mainColor: appConfig.theme.colors.primary[400],
-                  mainColorHighlight: appConfig.theme.colors.primary[500],
-                  backgroundColor: appConfig.theme.colors.primary[50],
-                  
-                },
-
-              }}
-              placeholder="Your Github Nickname..."
-            />
-            <Button
-              buttonColors={{
-                contrastColor:appConfig.theme.colors.primary[500],
-
-              }}
+            <Text
+              variant="body3"
               styleSheet={{
-                border: '0 0 1px 0',
-                borderColor: appConfig.theme.colors.primary[400],
-                hover: {
-                  borderColor: appConfig.theme.colors.primary[500],
-                  border: '0 0 1px 0',
-                }
+                margin: "15px auto 20px auto",
+                display: "flex",
+                fontSize: "14px",
+                color: appConfig.theme.colors.neutrals[500],
               }}
-              fullWidth
-              iconName="arrowRight"
-              variant="secondary"
-            />
-          </Box>
-          {/* Formulário */}
-
+            >
+              Olá {username}. É muito bom ver você aqui com a <br/> gente!!!
+            </Text>
 
           {/* Photo Area */}
           <Box
             styleSheet={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              maxWidth: '200px',
-              padding: '16px',
-              backgroundColor: appConfig.theme.colors.primary['1000'],
-              border: 'none',
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              maxWidth: "200px",
+              padding: "16px",
+              backgroundColor: appConfig.theme.colors.primary["1000"],
+              border: "none",
               flex: 1,
-              minHeight: '260px',
+              minHeight: "180px",
             }}
           >
             <Image
               styleSheet={{
-                borderRadius: '50%',
-                marginBottom: '22px',
+                width:'100%',
+                height:'100%',
+                borderRadius: "50%",
+                marginBottom: "12px",
               }}
-              src={`https://github.com/${username}.png`}
+              src={fotinha}
             />
             <Text
               variant="body4"
               styleSheet={{
-                color: appConfig.theme.colors.primary['1000'],
-                backgroundColor: appConfig.theme.colors.primary['400'],
-                padding: '5px 15px',
-                borderRadius: '1000px',
-                margin: '0',
+                color: appConfig.theme.colors.primary["400"],
+                backgroundColor: appConfig.theme.colors.primary["500"],
+                padding: "5px 12px",
+                borderRadius: "1000px",
+                margin: "0",
               }}
             >
-              {username}
+            {username}
+            {/*{apiGithub}*/} 
             </Text>
           </Box>
           {/* Photo Area */}
+            <TextField
+              value={username}
+              onChange={function (event) {
+                console.log("usuario digitou", event.target.value);
+                // Mas e agora onde ta o valor?
+                const valor = event.target.value;
+                // temos trocar o valor da variavel
+               setUsername(valor);
+
+                if (valor.length >= 2) {
+                  setFotinha(`https://github.com/${valor}.png`);
+                } else{
+                  setFotinha('https://th.bing.com/th/id/OIP.VRj9PnrFHhaX2vtoNZU4wwHaHa?w=200&h=215&c=7&r=0&o=5&pid=1.7');
+                }
+              }}
+              textFieldColors={{
+                neutral: {
+                  textColor: appConfig.theme.colors.neutrals[500],
+                  mainColor: appConfig.theme.colors.neutrals[500],
+                  mainColorHighlight: appConfig.theme.colors.primary[400],
+                  backgroundColor: appConfig.theme.colors.neutrals[50],
+                },
+              }}
+              placeholder="Your Github Nickname..."
+              fullWidth
+            />
+
+            <Button
+              type="submit"
+              fullWidth
+              iconName="arrowRight"
+              variant="secondary"
+              buttonColors={{
+                contrastColor: appConfig.theme.colors.primary[400],
+              }}
+              styleSheet={{
+                marginTop: "12px",
+                border: "1px 1px 1px 1px",
+                borderColor: appConfig.theme.colors.primary[500],
+                color: appConfig.theme.colors.primary[500],
+                hover: {
+                  borderColor: appConfig.theme.colors.primary[400],
+                  color: appConfig.theme.colors.primary[400],
+                  border: "1px 1px 1px 1px",
+                },
+              }}
+            />
+          </Box>
+          {/* Formulário */}
         </Box>
       </Box>
     </>
