@@ -1,4 +1,3 @@
-
 function GlobalStyle() {
   return (
     <style global jsx>{`
@@ -10,7 +9,19 @@ function GlobalStyle() {
         list-style: none;
         text-decoration: none;
       }
-
+      *::-webkit-scrollbar {
+        width: 5px;
+        height: 10px;
+      }
+      *::-webkit-scrollbar-track {
+        background: #1d1d1d;
+      }
+      *::-webkit-scrollbar-thumb {
+        background-color: #764eff;
+        border-radius: 20px;
+        border: none;
+        width: 10px;
+      }
       body {
         font-family: Arial;
       }
@@ -39,7 +50,7 @@ export default function MyApp({ Component, pageProps }) {
   return (
     <>
       <GlobalStyle />
-      <Component {...pageProps}/>
+      <Component {...pageProps} />
     </>
   );
 }

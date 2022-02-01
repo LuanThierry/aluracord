@@ -6,7 +6,7 @@ import {
   Image,
   Icon,
 } from "@skynexui/components";
-import React from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import appConfig from "../config.json";
 
@@ -22,7 +22,7 @@ function Titulo(props) {
           color: ${appConfig.theme.colors.neutrals[500]};
           font-size: 18px;
           font-weight: 600;
-          border: 2px solid ${appConfig.theme.colors.neutrals[500]};
+          border: 1.4px solid ${appConfig.theme.colors.neutrals[500]};
           border-radius: 5px;
           padding: 10px;
         }
@@ -32,13 +32,14 @@ function Titulo(props) {
 }
 export default function PaginaInicial() {
   //const username = 'LuanThierry';
-  const [username, setUsername] = React.useState("");
-  const [fotinha, setFotinha] = React.useState('https://th.bing.com/th/id/OIP.VRj9PnrFHhaX2vtoNZU4wwHaHa?w=200&h=215&c=7&r=0&o=5&pid=1.7');
+  const [github, setGithub] = useState("");
+  const [username, setUsername] = useState("");
+  const [fotinha, setFotinha] = useState(
+    "https://th.bing.com/th/id/OIP.VRj9PnrFHhaX2vtoNZU4wwHaHa?w=200&h=215&c=7&r=0&o=5&pid=1.7"
+  );
   const roteamento = useRouter();
-  fetch(`https://api.github.com/users/${username}`).then(async(respostaDoServidor) => {
-    const respostaEsperada = await respostaDoServidor.json();
-    console.log(respostaEsperada)
-  })
+
+
   return (
     <>
       <Box
@@ -63,7 +64,7 @@ export default function PaginaInicial() {
               xs: "column",
               sm: "column",
             },
-            boxSizing:'border-box',
+            boxSizing: "border-box",
             width: "100%",
             maxWidth: "400px",
             borderRadius: "5px",
@@ -71,8 +72,9 @@ export default function PaginaInicial() {
             margin: "16px",
             boxShadow: "0 0 20px #131418",
             backgroundColor: appConfig.theme.colors.neutrals[1000],
-            border: "1px solid",
+            border: "none",
             borderColor: appConfig.theme.colors.neutrals[500],
+            height: "90vh",
           }}
         >
           {/* Formulário */}
@@ -80,7 +82,7 @@ export default function PaginaInicial() {
             as="form"
             onSubmit={function (infosDoEvento) {
               //window.location.href = '/chat' antigo e chato kkk
-              roteamento.push("/chat");
+              roteamento.push(`/chat?username=${username}`);
               infosDoEvento.preventDefault();
             }}
             styleSheet={{
@@ -98,53 +100,55 @@ export default function PaginaInicial() {
             <Text
               variant="body3"
               styleSheet={{
-                margin: "15px auto 20px auto",
+                margin: "25px auto 20px auto",
                 display: "flex",
                 fontSize: "14px",
                 color: appConfig.theme.colors.neutrals[500],
+                letterSpacing: "1px",
               }}
             >
-              Olá {username}. É muito bom ver você aqui com a <br/> gente!!!
+              Olá {username} é muito bom ver você aqui com a gente !!!
             </Text>
 
-          {/* Photo Area */}
-          <Box
-            styleSheet={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              maxWidth: "200px",
-              padding: "16px",
-              backgroundColor: appConfig.theme.colors.primary["1000"],
-              border: "none",
-              flex: 1,
-              minHeight: "180px",
-            }}
-          >
-            <Image
+            {/* Photo Area */}
+            <Box
               styleSheet={{
-                width:'100%',
-                height:'100%',
-                borderRadius: "50%",
-                marginBottom: "12px",
-              }}
-              src={fotinha}
-            />
-            <Text
-              variant="body4"
-              styleSheet={{
-                color: appConfig.theme.colors.primary["400"],
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                maxWidth: "200px",
+                padding: "16px",
                 backgroundColor: appConfig.theme.colors.primary["1000"],
-                padding: "5px 12px",
-                borderRadius: "1000px",
-                margin: "0",
+                border: "none",
+                flex: 1,
+                minHeight: "180px",
               }}
             >
-            {username}
-            {/*{apiGithub}*/} 
-            </Text>
-          </Box>
-          {/* Photo Area */}
+              <Image
+                styleSheet={{
+                  width: "100%",
+                  height: "100%",
+                  borderRadius: "50%",
+                  marginBottom: "12px",
+                }}
+                src={fotinha}
+              />
+              <Text
+                variant="body4"
+                styleSheet={{
+                  color: appConfig.theme.colors.primary["400"],
+                  backgroundColor: appConfig.theme.colors.primary["1000"],
+                  padding: "5px 12px",
+                  borderRadius: "1000px",
+                  margin: "0",
+                }}
+              >
+                {username}
+              </Text>
+            </Box>
+            {/* Photo Area */}
+
+            
             <TextField
               value={username}
               onChange={function (event) {
@@ -152,12 +156,14 @@ export default function PaginaInicial() {
                 // Mas e agora onde ta o valor?
                 const valor = event.target.value;
                 // temos trocar o valor da variavel
-               setUsername(valor);
+                setUsername(valor);
 
                 if (valor.length >= 2) {
                   setFotinha(`https://github.com/${valor}.png`);
-                } else{
-                  setFotinha('https://th.bing.com/th/id/OIP.VRj9PnrFHhaX2vtoNZU4wwHaHa?w=200&h=215&c=7&r=0&o=5&pid=1.7');
+                } else {
+                  setFotinha(
+                    "https://th.bing.com/th/id/OIP.VRj9PnrFHhaX2vtoNZU4wwHaHa?w=200&h=215&c=7&r=0&o=5&pid=1.7"
+                  );
                 }
               }}
               textFieldColors={{
@@ -175,7 +181,7 @@ export default function PaginaInicial() {
             <Button
               type="submit"
               fullWidth
-              iconName="arrowRight"
+              iconName="github"
               variant="secondary"
               buttonColors={{
                 contrastColor: appConfig.theme.colors.primary[400],
