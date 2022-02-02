@@ -13,6 +13,7 @@ export function ButtonSendSticker(props) {
     >
       <Button
         styleSheet={{
+          borderRadius: "0px 0px 0px 0px",
           padding: "20px 10px",
           minWidth: "20px",
           minHeight: "20px",
@@ -39,7 +40,7 @@ export function ButtonSendSticker(props) {
           styleSheet={{
             display: "flex",
             flexDirection: "column",
-            borderRadius: "5px",
+            borderRadius: "0px 0px 0px 0px",
             position: "absolute",
             backgroundColor: appConfig.theme.colors.neutrals[999],
             width: {
@@ -78,7 +79,7 @@ export function ButtonSendSticker(props) {
                 styleSheet={{
                   width: "50%",
                   margin: "0px",
-                  borderRadius: "0px",
+                  borderRadius: "0px 0px 0px 0px",
                   padding: "10px",
                   focus: {
                     backgroundColor: appConfig.theme.colors.neutrals[999],
