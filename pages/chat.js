@@ -319,7 +319,7 @@ function MessageList(props) {
                 <Image
                   src={mensagem.texto.replace(":sticker:", "")}
                   styleSheet={{
-                    maxWidth: "50vh",
+                    maxWidth: "45vh",
                   }}
                 />
               ) : (
