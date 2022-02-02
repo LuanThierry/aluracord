@@ -32,26 +32,22 @@ export default function ChatPage() {
       .then(({ data }) => {
         setListaDeMensagens(data);
       });
-    const subscription = escutaMensagensEmTempoReal((novaMensagem) => {
-      console.log("Nova mensagem:", novaMensagem);
-      console.log("listaDeMensagens:", listaDeMensagens);
-
-      setListaDeMensagens((valorAtualDaLista) => {
-        console.log("valorAtualDaLista:", valorAtualDaLista);
-        return [novaMensagem, ...valorAtualDaLista];
+      escutaMensagensEmTempoReal((novaMensagem) =>{
+        console.log('Nova mensagem: ', novaMensagem);
+        setListaDeMensagens((valorAtualDaLista) => {
+          return [
+            novaMensagem,
+            ...valorAtualDaLista,
+          ]
+        });
       });
-    });
-    return () => {
-      subscription.unsubscribe();
-    };
-  }, []);
 
+}, []);
 function handleNovaMensagem(novaMensagem) {
     const mensagem = {
       de: usuarioLogado,
       texto: novaMensagem,
     };
-
     supabaseClient
       .from("mensagens")
       .insert([mensagem])
