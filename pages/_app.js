@@ -2,15 +2,18 @@ function GlobalStyle() {
   return (
     <style global jsx>{`
       * {
-        background: #131418;
+        background: transparent;
         margin: 0;
         padding: 0;
         box-sizing: border-box;
+        word-wrap: break-word;
         list-style: none;
         text-decoration: none;
+        border-radius: 0;
+        scroll-behavior: smooth;
       }
       *::-webkit-scrollbar {
-        width: 5px;
+        width: 7px;
         height: 10px;
       }
       *::-webkit-scrollbar-track {

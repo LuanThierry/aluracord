@@ -1,15 +1,7 @@
-import {
-  Box,
-  Button,
-  Text,
-  TextField,
-  Image,
-  Icon,
-} from "@skynexui/components";
-import { useEffect, useState } from "react";
+import {Box, Button, Text, TextField, Image, Icon } from "@skynexui/components";
+import React, {useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import appConfig from "../config.json";
-
 function Titulo(props) {
   const Tag = props.tag || "h1";
   return (
@@ -31,15 +23,12 @@ function Titulo(props) {
   );
 }
 export default function PaginaInicial() {
-  //const username = 'LuanThierry';
   const [github, setGithub] = useState("");
   const [username, setUsername] = useState("");
   const [fotinha, setFotinha] = useState(
-    "https://th.bing.com/th/id/OIP.VRj9PnrFHhaX2vtoNZU4wwHaHa?w=200&h=215&c=7&r=0&o=5&pid=1.7"
+    "https://github.com/LuanThierry.png"
   );
   const roteamento = useRouter();
-
-
   return (
     <>
       <Box
@@ -71,10 +60,10 @@ export default function PaginaInicial() {
             padding: "32px 0px 0px 0px",
             margin: "16px",
             boxShadow: "0 0 20px #131418",
-            backgroundColor: appConfig.theme.colors.neutrals[1000],
+            backgroundColor: 'rgba(19, 20, 24, 0.9)',
             border: "none",
             borderColor: appConfig.theme.colors.neutrals[500],
-            height: "90vh",
+            height: "85vh",
           }}
         >
           {/* Formulário */}
@@ -92,8 +81,8 @@ export default function PaginaInicial() {
               justifyContent: "center",
               width: { xs: "100%", sm: "80%" },
               textAlign: "center",
-              marginBottom: "32px",
-              backgroundColor: appConfig.theme.colors.neutrals[1000],
+              backgroundColor:'transparent',
+              padding:'0px 25px',
             }}
           >
             <Titulo>{appConfig.name}</Titulo>
@@ -107,9 +96,8 @@ export default function PaginaInicial() {
                 letterSpacing: "1px",
               }}
             >
-              Olá {username} é muito bom ver você aqui com a gente !!!
+              Olá {username} vem se divertir com a gente !!!
             </Text>
-
             {/* Photo Area */}
             <Box
               styleSheet={{
@@ -118,7 +106,7 @@ export default function PaginaInicial() {
                 alignItems: "center",
                 maxWidth: "200px",
                 padding: "16px",
-                backgroundColor: appConfig.theme.colors.primary["1000"],
+                backgroundColor: 'transparent',
                 border: "none",
                 flex: 1,
                 minHeight: "180px",
@@ -130,26 +118,14 @@ export default function PaginaInicial() {
                   height: "100%",
                   borderRadius: "50%",
                   marginBottom: "12px",
+                  boxShadow: "0 0 30px 10px #131418",
                 }}
                 src={fotinha}
               />
-              <Text
-                variant="body4"
-                styleSheet={{
-                  color: appConfig.theme.colors.primary["400"],
-                  backgroundColor: appConfig.theme.colors.primary["1000"],
-                  padding: "5px 12px",
-                  borderRadius: "1000px",
-                  margin: "0",
-                }}
-              >
-                {username}
-              </Text>
             </Box>
             {/* Photo Area */}
-
-            
             <TextField
+            required
               value={username}
               onChange={function (event) {
                 console.log("usuario digitou", event.target.value);
@@ -157,13 +133,10 @@ export default function PaginaInicial() {
                 const valor = event.target.value;
                 // temos trocar o valor da variavel
                 setUsername(valor);
-
                 if (valor.length >= 2) {
                   setFotinha(`https://github.com/${valor}.png`);
                 } else {
-                  setFotinha(
-                    "https://th.bing.com/th/id/OIP.VRj9PnrFHhaX2vtoNZU4wwHaHa?w=200&h=215&c=7&r=0&o=5&pid=1.7"
-                  );
+                  setFotinha("https://github.com/LuanThierry.png");
                 }
               }}
               textFieldColors={{
@@ -177,7 +150,6 @@ export default function PaginaInicial() {
               placeholder="Your Github Nickname..."
               fullWidth
             />
-
             <Button
               type="submit"
               fullWidth
